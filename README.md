@@ -10,9 +10,20 @@ vue create todomvc
 ### 使用todomvc模板和样式
 + 创建ToDo.vue
 + 使用[todomvc-app-template](https://github.com/tastejs/todomvc-app-template/blob/master/index.html)中的section
-```html
-<section class="todoapp">
-  ...
-</section>
-```
 + 安装并引入[todomvc-app-css](https://github.com/tastejs/todomvc-app-css)
+
+```html
+<template>
+  <section class="todoapp">
+    ...
+  </section>
+</template>
+
+<script>
+import "todomvc-app-css/index.css";
+export default {};
+</script>
+
+```
+
+### 实现功能
