@@ -8,8 +8,7 @@
     </header>
     <section class="main" v-show="todos.length>0">
       <input id="toggle-all" class="toggle-all" type="checkbox"
-        :checked="allCompleted"
-        @click="toggelAll">
+        v-model="allCompleted">
       <label for="toggle-all">Mark all as complete</label>
       <ul class="todo-list">
         <li
@@ -74,8 +73,15 @@ export default {
     };
   },
   computed: {
-    allCompleted() {
-      return this.todos.every(todo => todo.completed);
+    allCompleted: {
+      get() {
+        return this.todos.every(todo => todo.completed);
+      },
+      set(value) {
+        this.todos.forEach(todo => {
+          todo.completed = value;
+        });
+      }
     },
     showTodos() {
       if (this.typeIndex === 2) {
@@ -108,12 +114,6 @@ export default {
     },
     toggle(todo) {
       todo.completed = !todo.completed;
-    },
-    toggelAll() {
-      let isAll = this.allCompleted;
-      this.todos.forEach(todo => {
-        todo.completed = !isAll;
-      });
     },
     edit(index) {
       this.todos.forEach((todo, item) => {
