@@ -3,29 +3,26 @@
     <h1>todos</h1>
     <input class="new-todo" placeholder="What needs to be done?" autofocus
       v-model.trim="newTodo"
-      @keyup.enter="add">
+      @keyup.enter="addTodo">
   </header>
 </template>
 
 <script>
-import mixins from "../mixin";
+import { mapMutations } from "vuex";
 export default {
-  mixins: [mixins],
   data() {
     return {
       newTodo: ""
     };
   },
   methods: {
-    add() {
+    addTodo() {
       if (!this.newTodo) return;
-      this.todos.push({
-        name: this.newTodo,
-        completed: false,
-        editing: false
-      });
+      let name = this.newTodo;
+      this.add(name);
       this.newTodo = "";
-    }
+    },
+    ...mapMutations(["add"])
   }
 };
 </script>

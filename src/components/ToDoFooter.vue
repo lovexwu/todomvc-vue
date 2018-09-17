@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer" v-show="todoList.length>0">
+  <footer class="footer" v-show="todos.length>0">
     <span class="todo-count">
       <strong>{{actives}}</strong>
       {{actives === 1 ? 'item' : 'items'}} left
@@ -16,25 +16,19 @@
 </template>
 
 <script>
-import mixins from "../mixin";
-import bus from "../bus";
+import { mapState, mapMutations } from "vuex";
 export default {
-  mixins: [mixins],
   data() {
     return {
       types: ["All", "Active", "Completed"]
     };
   },
   computed: {
+    ...mapState(["todos"]),
     actives() {
-      return this.todoList.filter(todo => !todo.completed).length;
+      return this.todos.filter(todo => !todo.completed).length;
     }
   },
-  methods: {
-    clearCompleted() {
-      this.todoList = this.todoList.filter(todo => !todo.completed);
-      bus.$emit("clearCompleted", this.todoList);
-    }
-  }
+  methods: mapMutations(["clearCompleted"])
 };
 </script>

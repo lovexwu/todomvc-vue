@@ -6,20 +6,21 @@
     <div class="view">
       <input class="toggle" type="checkbox"
         :checked="todo.completed"
-        @click="$emit('toggle', todo)">
-      <label @dblclick="$emit('edit', index)">{{todo.name}}</label>
-      <button class="destroy" @click="$emit('remove', index)"></button>
+        @click="toggle(index)">
+      <label @dblclick="edit(index)">{{todo.name}}</label>
+      <button class="destroy" @click="remove(index)"></button>
     </div>
     <input class="edit"
       :value="todo.name"
       v-focus="todo.editing"
-      @blur="doneEdit($event, todo, index)"
-      @keyup.esc="$emit('cancelEdit', todo)"
-      @keyup.enter="doneEdit($event, todo, index)">
+      @blur="doneEdit({name:$event.target.value, index})"
+      @keyup.esc="cancelEdit(index)"
+      @keyup.enter="doneEdit({name:$event.target.value, index})">
   </li>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   props: {
     todo: {
@@ -31,11 +32,7 @@ export default {
       type: Number
     }
   },
-  methods: {
-    doneEdit(e, todo, index) {
-      this.$emit("doneEdit", { e, todo, index });
-    }
-  },
+  methods: mapMutations(["remove", "toggle", "edit", "doneEdit", "cancelEdit"]),
   directives: {
     focus(el, binding) {
       if (binding.value) {
