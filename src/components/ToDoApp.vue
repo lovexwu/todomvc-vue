@@ -1,7 +1,7 @@
 <template>
   <section class="todoapp">
     <ToDoHeader :todos="todos"/>
-    <ToDoMain :todos="todos"/>
+    <router-view></router-view>
     <ToDoFooter :todos="todos"/>
   </section>
 </template>
@@ -9,12 +9,10 @@
 <script>
 import "todomvc-app-css/index.css";
 import ToDoHeader from "./ToDoHeader";
-import ToDoMain from "./ToDoMain";
 import ToDoFooter from "./ToDoFooter";
 export default {
   components: {
     ToDoHeader,
-    ToDoMain,
     ToDoFooter
   },
   data() {

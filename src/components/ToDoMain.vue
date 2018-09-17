@@ -1,5 +1,5 @@
 <template>
-  <section class="main" v-show="todos.length>0">
+  <section class="main" v-show="todoList.length>0">
     <input id="toggle-all" class="toggle-all" type="checkbox"
       v-model="allCompleted">
     <label for="toggle-all">Mark all as complete</label>
@@ -19,25 +19,24 @@
 </template>
 
 <script>
-import mixins from "../mixin";
 import bus from "../bus";
 import ToDo from "./ToDo";
 export default {
   components: {
     ToDo
   },
-  mixins: [mixins],
   data() {
     return {
-      typeIndex: 0
+      todoList: this.$parent.todos
     };
   },
   computed: {
     showTodos() {
-      if (this.typeIndex === 2) {
+      let name = this.$route.name;
+      if (name === "Completed") {
         return this.todoList.filter(todo => todo.completed);
       }
-      if (this.typeIndex === 1) {
+      if (name === "Active") {
         return this.todoList.filter(todo => !todo.completed);
       }
       return this.todoList;
@@ -54,9 +53,6 @@ export default {
     }
   },
   created() {
-    bus.$on("typeChange", value => {
-      this.typeIndex = value;
-    });
     bus.$on("clearCompleted", newTodos => {
       this.todoList = newTodos;
     });
