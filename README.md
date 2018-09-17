@@ -6,6 +6,6 @@
 
 ### [step3: 路由版本](https://github.com/tonyfree/todomvc-vue/tree/step3)
 
-### step4: Vuex版本
+### [step4: Vuex版本](https://github.com/tonyfree/todomvc-vue/tree/step4)
 
 ### step5: ElementUI版本
