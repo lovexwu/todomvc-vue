@@ -1,13 +1,19 @@
 <template>
-  <section class="todoapp">
-    <ToDoHeader/>
-    <router-view></router-view>
-    <ToDoFooter/>
-  </section>
+  <el-row>
+    <el-col :span="12" :offset="6">
+      <el-card>
+        <div slot="header">
+          <h1>todos</h1>
+        </div>
+        <ToDoHeader/> 
+        <router-view></router-view>
+        <ToDoFooter/>
+      </el-card>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
-import "todomvc-app-css/index.css";
 import ToDoHeader from "./ToDoHeader";
 import ToDoFooter from "./ToDoFooter";
 export default {
@@ -19,10 +25,15 @@ export default {
 </script>
 
 <style>
-.todo-list li .toggle {
-  left: 0;
+.completed {
+  color: #d9d9d9;
+  text-decoration: line-through;
 }
-.todo-list li label {
-  text-align: left;
+.selected {
+  background-color: #d8e8f8 !important;
+}
+.selected i,
+.selected span {
+  color: #409eff;
 }
 </style>

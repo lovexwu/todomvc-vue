@@ -50,7 +50,7 @@ const store = new Vuex.Store({
     },
     doneEdit({ todos }, { name, index }) {
       if (!name) {
-        todos.remove(index);
+        todos.splice(index, 1);
         return;
       }
       todos[index].name = name;
