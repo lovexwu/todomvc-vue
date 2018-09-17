@@ -1,8 +1,8 @@
 <template>
   <section class="todoapp">
-    <ToDoHeader :todos="todos"/>
+    <ToDoHeader/>
     <router-view></router-view>
-    <ToDoFooter :todos="todos"/>
+    <ToDoFooter/>
   </section>
 </template>
 
@@ -14,22 +14,6 @@ export default {
   components: {
     ToDoHeader,
     ToDoFooter
-  },
-  data() {
-    return {
-      todos: [
-        {
-          name: "Taste JavaScript",
-          completed: true,
-          editing: false
-        },
-        {
-          name: "Buy a unicorn",
-          completed: false,
-          editing: false
-        }
-      ]
-    };
   }
 };
 </script>
