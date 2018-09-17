@@ -8,4 +8,4 @@
 
 ### step4: Vuex版本
 
-### step5： ElementUI版本
+### step5: ElementUI版本
