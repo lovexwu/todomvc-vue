@@ -1,29 +1,10 @@
-### 用[vue-cli](https://cli.vuejs.org/zh/)创建项目
-```
-yarn global add @vue/cli
+### 组件
++ 入口组件：ToDoApp
++ 页面组件：ToDoHeader、ToDoMain、ToDoFooter
++ ToDoMain子组件：ToDo
 
-vue create todomvc
-```
-暂时不勾选vue-router和vuex，可以使用default配置，本方案配置如下
-![](./src/assets/vue-cli-select.png)
+### 组件通信
++ 父子组件：props down，events up
++ 非父子组件： bus
 
-### 使用todomvc模板和样式
-+ 创建ToDo.vue
-+ 使用[todomvc-app-template](https://github.com/tastejs/todomvc-app-template/blob/master/index.html)中的section
-+ 安装并引入[todomvc-app-css](https://github.com/tastejs/todomvc-app-css)
-
-```html
-<template>
-  <section class="todoapp">
-    ...
-  </section>
-</template>
-
-<script>
-import "todomvc-app-css/index.css";
-export default {};
-</script>
-
-```
-
-### 实现功能
+### 混入
