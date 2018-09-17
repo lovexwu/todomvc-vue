@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import ToDoMain from "./components/ToDoMain";
+import ToDoMain from "./views/ToDoMain";
 
 Vue.use(Router);
 

@@ -20,7 +20,7 @@
 
 <script>
 import bus from "../bus";
-import ToDo from "./ToDo";
+import ToDo from "../components/ToDo";
 export default {
   components: {
     ToDo

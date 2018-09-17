@@ -1,10 +1,6 @@
-### 组件
-+ 入口组件：ToDoApp
-+ 页面组件：ToDoHeader、ToDoMain、ToDoFooter
-+ ToDoMain子组件：ToDo
+### 路由
++ 中间主题部分为router-view，配置见router.js
++ ToDoFooter的切换为router-link
++ 路由组件ToDoMain数据初始化用$parent.todos(后续用vuex优化)，根据$route.name判断展示的数据
 
-### 组件通信
-+ 父子组件：props down，events up
-+ 非父子组件： bus
 
-### 混入
