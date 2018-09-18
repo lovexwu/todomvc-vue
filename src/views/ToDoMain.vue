@@ -26,14 +26,14 @@
     <el-table-column width="100">
       <template slot-scope="scope">
         <el-button @click="edit(scope.$index)" type="text" size="small">编辑</el-button>
-        <el-button @click="remove(scope.$index)" type="text" size="small">删除</el-button>
+        <el-button @click="remove({id:scope.row.id, index:scope.$index})" type="text" size="small">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   computed: {
     ...mapState(["todos"]),
@@ -48,6 +48,9 @@ export default {
       return this.todos;
     }
   },
-  methods: mapMutations(["edit", "doneEdit", "remove"])
+  methods: {
+    ...mapMutations(["edit", "doneEdit"]),
+    ...mapActions(["remove"])
+  }
 };
 </script>

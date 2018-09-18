@@ -1,22 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import Todos from "./api/todos";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    todos: [
-      {
-        name: "Taste JavaScript",
-        completed: true,
-        editing: false
-      },
-      {
-        name: "Buy a unicorn",
-        completed: false,
-        editing: false
-      }
-    ]
+    todos: []
   },
   getters: {
     allCompleted: state => {
@@ -24,6 +14,9 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    initTodos(state, todos) {
+      state.todos = todos;
+    },
     add({ todos }, name) {
       todos.push({
         name,
@@ -61,6 +54,27 @@ const store = new Vuex.Store({
     },
     clearCompleted(state) {
       state.todos = state.todos.filter(todo => !todo.completed);
+    }
+  },
+  actions: {
+    list({ commit }) {
+      Todos.list().then(res => {
+        let todos = res.data;
+        todos.forEach(todo => {
+          todo.completed = todo.completed === 1;
+        });
+        commit("initTodos", todos);
+      });
+    },
+    add({ commit }, name) {
+      Todos.add({ name, completed: 0 }).then(() => {
+        commit("add", name);
+      });
+    },
+    remove({ commit }, { id, index }) {
+      Todos.remove({ id }).then(() => {
+        commit("remove", index);
+      });
     }
   }
 });

@@ -1,4 +1,10 @@
-### Element
-+ 按需加载
-+ 使用的组件：Card, Row, Col, Table, TableColumn, Checkbox, Button, Input, ButtonGroup
-+ 因为element没有list组件，使用了table组件，删除了ToDo组件
+### API接口
++ 本地serve：[todomvc-serve](https://github.com/tonyfree/todomvc-serve)
++ 新增api
+```
+src
+ ├── api
+ |    ├── api.js    // api配置
+ |    └── todos.js  // todosService
+```
++ 增加store:actions，把所有操作改成actions
