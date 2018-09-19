@@ -4,8 +4,11 @@ const host = "http://localhost:3000";
 const api = {
   list: "/todos/list",
   add: "/todos/add",
-  update: "/todos/update",
-  remove: "/todos/delete"
+  edit: "/todos/edit",
+  remove: "/todos/delete",
+  toggle: "/todos/toggle",
+  toggleAll: "/todos/toggleAll",
+  clearCompleted: "/todos/clearCompleted"
 };
 
 Object.keys(api).forEach(key => {

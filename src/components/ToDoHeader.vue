@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -41,8 +41,7 @@ export default {
       this.add(name);
       this.newTodo = "";
     },
-    ...mapMutations(["toggleAll"]),
-    ...mapActions(["add"])
+    ...mapActions(["add", "toggleAll"])
   }
 };
 </script>

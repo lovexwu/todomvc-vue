@@ -30,10 +30,9 @@ const store = new Vuex.Store({
     toggle({ todos }, index) {
       todos[index].completed = !todos[index].completed;
     },
-    toggleAll({ todos }) {
-      const allCompleted = todos.every(todo => todo.completed);
+    toggleAll({ todos }, allCompleted) {
       todos.forEach(todo => {
-        todo.completed = !allCompleted;
+        todo.completed = allCompleted;
       });
     },
     edit({ todos }, index) {
@@ -42,10 +41,6 @@ const store = new Vuex.Store({
       });
     },
     doneEdit({ todos }, { name, index }) {
-      if (!name) {
-        todos.splice(index, 1);
-        return;
-      }
       todos[index].name = name;
       todos[index].editing = false;
     },
@@ -62,6 +57,7 @@ const store = new Vuex.Store({
         let todos = res.data;
         todos.forEach(todo => {
           todo.completed = todo.completed === 1;
+          todo.editing = false;
         });
         commit("initTodos", todos);
       });
@@ -74,6 +70,38 @@ const store = new Vuex.Store({
     remove({ commit }, { id, index }) {
       Todos.remove({ id }).then(() => {
         commit("remove", index);
+      });
+    },
+    toggle({ commit }, { todo, index }) {
+      let id = todo.id;
+      let completed = !todo.completed ? 1 : 0;
+      Todos.toggle({ id, completed }).then(() => {
+        commit("toggle", index);
+      });
+    },
+    doneEdit({ commit }, { todo, index }) {
+      let { name, id } = todo;
+      if (todo.name) {
+        Todos.edit({ name, id }).then(() => {
+          commit("doneEdit", { name, index });
+        });
+      } else {
+        Todos.remove({ id }).then(() => {
+          commit("remove", index);
+        });
+      }
+    },
+    toggleAll({ commit, state }) {
+      const allCompleted = state.todos.every(todo => todo.completed);
+      let after = allCompleted ? 0 : 1;
+      let before = allCompleted ? 1 : 0;
+      Todos.toggleAll({ after, before }).then(() => {
+        commit("toggleAll", !allCompleted);
+      });
+    },
+    clearCompleted({ commit }) {
+      Todos.clearCompleted().then(() => {
+        commit("clearCompleted");
       });
     }
   }

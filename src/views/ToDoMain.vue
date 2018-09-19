@@ -4,7 +4,7 @@
     :data="showTodos">
     <el-table-column width="80" align="left">
       <template slot-scope="scope">
-        <el-checkbox v-model="scope.row.completed"></el-checkbox>
+        <el-checkbox :value="scope.row.completed" @change="toggle({todo:scope.row, index:scope.$index})"></el-checkbox>
       </template>
     </el-table-column>
     <el-table-column align="left">
@@ -13,8 +13,8 @@
           v-show="scope.row.editing"
           v-model="scope.row.name"
           size="small"
-          @blur="doneEdit({name:scope.row.name, index:scope.$index})"
-          @keyup.enter.native="doneEdit({name:scope.row.name, index:scope.$index})">
+          @blur="doneEdit({todo:scope.row, index:scope.$index})"
+          @keyup.enter.native="doneEdit({todo:scope.row, index:scope.$index})">
         </el-input>
         <span
           v-show="!scope.row.editing"
@@ -49,8 +49,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["edit", "doneEdit"]),
-    ...mapActions(["remove"])
+    ...mapMutations(["edit"]),
+    ...mapActions(["remove", "toggle", "doneEdit"])
   }
 };
 </script>

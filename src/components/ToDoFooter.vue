@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -58,7 +58,7 @@ export default {
       this.typeIndex = index;
       this.$router.push({ name });
     },
-    ...mapMutations(["clearCompleted"])
+    ...mapActions(["clearCompleted"])
   }
 };
 </script>
