@@ -10,4 +10,4 @@
 
 ### [step5: ElementUI版本](https://github.com/tonyfree/todomvc-vue/tree/step5)
 
-### [step6: API对接](https://github.com/tonyfree/todomvc-vue/tree/step6)
+### [step6: API版本](https://github.com/tonyfree/todomvc-vue/tree/step6)
