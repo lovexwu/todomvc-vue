@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-col :span="12" :offset="6">
+    <el-col >
       <el-card>
         <div slot="header">
           <h1>todos</h1>
@@ -16,11 +16,16 @@
 <script>
 import ToDoHeader from "./ToDoHeader";
 import ToDoFooter from "./ToDoFooter";
+import { mapActions } from "vuex";
 export default {
   components: {
     ToDoHeader,
     ToDoFooter
-  }
+  },
+  created() {
+    this.list();
+  },
+  methods: mapActions(["list"])
 };
 </script>
 
