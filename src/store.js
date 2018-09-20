@@ -58,6 +58,7 @@ const store = new Vuex.Store({
         todos.forEach(todo => {
           todo.completed = todo.completed === 1;
           todo.editing = false;
+          todo.id = todo.id || todo._id;
         });
         commit("initTodos", todos);
       });
