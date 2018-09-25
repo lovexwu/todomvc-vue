@@ -13,3 +13,5 @@
 ### [step6: API版本](https://github.com/tonyfree/todomvc-vue/tree/step6)
 
 ### [step7: Baas服务--LeanCloud](https://github.com/tonyfree/todomvc-vue/tree/step7)
+
+### [step8: LeanCloud实时数据同步LiveQuery](https://github.com/tonyfree/todomvc-vue/tree/step8)

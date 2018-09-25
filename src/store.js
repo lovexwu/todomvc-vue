@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import AV from "leancloud-storage";
+import AV from "leancloud-storage/live-query";
 
 AV.init({
   appId: "maMd3SMW377AXQtKAkBCS3WU-gzGzoHsz",
@@ -74,67 +74,67 @@ const store = new Vuex.Store({
         commit("initTodos", todos);
       });
     },
-    add({ commit }, name) {
+    add(context, name) {
       // 这里注意每次操作都要重新获取object，不然删除操作后的任何操作都会出错
       const object = new AV.Object("Todos");
-      object.save({ name, completed: false }).then(res => {
-        commit("add", { name, id: res.id });
-      });
+      object.save({ name, completed: false });
     },
-    remove({ commit }, { id, index }) {
+    remove(context, { id }) {
       const todo = AV.Object.createWithoutData("Todos", id);
-      todo.destroy().then(() => {
-        commit("remove", index);
-      });
+      todo.destroy();
     },
-    toggle({ commit }, { todo, index }) {
+    toggle(context, { todo }) {
       const instance = AV.Object.createWithoutData("Todos", todo.id);
       instance.set("completed", !todo.completed);
-      instance.save().then(() => {
-        commit("toggle", index);
-      });
+      instance.save();
     },
-    doneEdit({ commit }, { todo, index }) {
+    doneEdit(context, { todo }) {
       let { name, id } = todo;
       const instance = AV.Object.createWithoutData("Todos", id);
       if (todo.name) {
         instance.set("name", name);
-        instance.save().then(() => {
-          commit("doneEdit", { name, index });
-        });
+        instance.save();
       } else {
-        instance.destroy().then(() => {
-          commit("remove", index);
-        });
+        instance.destroy();
       }
     },
     toggleAll({ commit, state }) {
       const allCompleted = state.todos.every(todo => todo.completed);
       query.equalTo("completed", allCompleted);
-      query
-        .find()
-        .then(todos => {
-          todos.forEach(todo => {
-            todo.set("completed", !allCompleted);
-          });
-          return AV.Object.saveAll(todos);
-        })
-        .then(() => {
-          commit("toggleAll", !allCompleted);
+      query.find().then(todos => {
+        todos.forEach(todo => {
+          todo.set("completed", !allCompleted);
         });
+        return AV.Object.saveAll(todos);
+      });
     },
-    clearCompleted({ commit }) {
+    clearCompleted() {
       query.equalTo("completed", true);
-      query
-        .find()
-        .then(todos => {
-          return AV.Object.destroyAll(todos);
-        })
-        .then(() => {
-          commit("clearCompleted");
-        });
+      query.find().then(todos => {
+        return AV.Object.destroyAll(todos);
+      });
     }
   }
+});
+
+query.subscribe().then(liveQuery => {
+  const { state, commit } = store;
+  liveQuery.on("create", newTodo => {
+    commit("add", { name: newTodo.attributes.name, id: newTodo.id });
+  });
+  liveQuery.on("delete", Todo => {
+    commit("remove", state.todos.findIndex(todo => todo.id === Todo.id));
+  });
+  liveQuery.on("update", (Todo, updatedKeys) => {
+    let key = updatedKeys[0];
+    let index = state.todos.findIndex(todo => todo.id === Todo.id);
+    if (key === "completed") {
+      commit("toggle", index);
+    }
+    if (key === "name") {
+      commit("doneEdit", { name: Todo.attributes.name, index });
+    }
+  });
 });
 
 export default store;
