@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "element-ui": "^2.4.7",
+    "layui-src": "^2.3.0",
     "leancloud-storage": "^3.10.0",
     "todomvc-app-css": "^2.1.2",
     "vue": "^2.5.17",

@@ -4154,6 +4154,10 @@ launch-editor@^2.2.1:
     chalk "^2.3.0"
     shell-quote "^1.6.1"
 
+layui-src@^2.3.0:
+  version "2.3.0"
+  resolved "http://registry.npm.taobao.org/layui-src/download/layui-src-2.3.0.tgz#9ec19286d04db2874caa19e8b3353ae48c9bee02"
+
 lcid@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/lcid/download/lcid-1.0.0.tgz#308accafa0bc483a3867b4b6f2b9506251d1b835"

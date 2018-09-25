@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import AV from "leancloud-storage";
+import AV from "leancloud-storage/live-query";
 
 AV.init({
   appId: "maMd3SMW377AXQtKAkBCS3WU-gzGzoHsz",
