@@ -4,7 +4,7 @@
     :data="showTodos">
     <el-table-column width="80" align="left">
       <template slot-scope="scope">
-        <el-checkbox :value="scope.row.completed" @change="toggle({todo:scope.row, index:scope.$index})"></el-checkbox>
+        <el-checkbox :value="scope.row.completed" @change="toggle({todo:scope.row})"></el-checkbox>
       </template>
     </el-table-column>
     <el-table-column align="left">
@@ -13,8 +13,8 @@
           v-show="scope.row.editing"
           v-model="scope.row.name"
           size="small"
-          @blur="doneEdit({todo:scope.row, index:scope.$index})"
-          @keyup.enter.native="doneEdit({todo:scope.row, index:scope.$index})">
+          @blur="doneEdit({todo:scope.row})"
+          @keyup.enter.native="doneEdit({todo:scope.row})">
         </el-input>
         <span
           v-show="!scope.row.editing"
@@ -26,7 +26,7 @@
     <el-table-column width="100">
       <template slot-scope="scope">
         <el-button @click="edit(scope.$index)" type="text" size="small">编辑</el-button>
-        <el-button @click="remove({id:scope.row.id, index:scope.$index})" type="text" size="small">删除</el-button>
+        <el-button @click="remove({id:scope.row.id})" type="text" size="small">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
